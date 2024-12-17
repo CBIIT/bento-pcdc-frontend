@@ -1,0 +1,22 @@
+name: axe
+on:
+  push:
+    branches: [1.4.0]
+jobs:
+  axe:
+    name: Verify 508 Compliance
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+      - run: npm ci --legacy-peer-deps
+      - run: npm start & npx wait-on http://localhost:3000
+      - name: Run axe
+        run: |
+          npm install -g @axe-core/cli
+          axe http://localhost:3000 --exit
