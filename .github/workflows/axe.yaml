@@ -25,8 +25,7 @@ jobs:
       - name: Run axe
         run: |
           npm install -g @axe-core/cli@4.8.1
-          axe http://localhost:3000/${{ matrix.pages }}\
-          --save results/${{ matrix.pages }}-report.json
+          axe http://localhost:3000/${{ matrix.pages }}
 
       - name: Upload accessibility report
         uses: actions/upload-artifact@v4
