@@ -21,8 +21,16 @@ jobs:
         with:
           node-version: 16
       - run: npm ci --legacy-peer-deps
-      - run: npm start & npx wait-on http://localhost:3000/${{ matrix.pages }}
+
+      - run: npx concurrently "npm start" "npx wait-on http://localhost:3000"
+
       - name: Run axe
         run: |
           npm install -g @axe-core/cli
-          axe http://localhost:3000 --exit
+          axe http://localhost:3000/${{ matrix.pages }}\
+          --save results/${{ matrix.pages }}-report.json
+
+      - name: Upload accessibility report
+        uses: actions/upload-artifact@v4
+        with:
+          name: axe-reports
