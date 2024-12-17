@@ -6,6 +6,12 @@ jobs:
   axe:
     name: Verify 508 Compliance
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        pages: 
+        - home
+        - explore
+        - studies
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -15,7 +21,7 @@ jobs:
         with:
           node-version: 16
       - run: npm ci --legacy-peer-deps
-      - run: npm start & npx wait-on http://localhost:3000
+      - run: npm start & npx wait-on http://localhost:3000/${{ matrix.pages }}
       - name: Run axe
         run: |
           npm install -g @axe-core/cli
