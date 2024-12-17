@@ -24,7 +24,7 @@ jobs:
       - run: npm start & npx wait-on http://localhost:3000
       - name: Run axe
         run: |
-          npm install -g @axe-core/cli@4.8.1
+          npm install -g @axe-core/cli@4.9.1
           axe http://localhost:3000/${{ matrix.pages }}
 
       - name: Upload accessibility report
