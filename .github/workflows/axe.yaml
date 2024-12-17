@@ -1,7 +1,7 @@
 name: axe
 on:
   push:
-    branches: [1.4.0]
+    branches: [axe-testing-508]
 jobs:
   axe:
     name: Verify 508 Compliance
